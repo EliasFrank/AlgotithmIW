@@ -6,8 +6,8 @@ public class HL167 {
         int[] nums = {2,7,11,15};
         int target = 9;
         int[] ints = hl167.twoSum(nums, target);
-        for (int i = 0; i < ints.length; i++) {
-            System.out.print(ints[i] + " ");
+        for (int anInt : ints) {
+            System.out.print(anInt + " ");
         }
     }
     public int[] twoSum(int[] numbers, int target) {
