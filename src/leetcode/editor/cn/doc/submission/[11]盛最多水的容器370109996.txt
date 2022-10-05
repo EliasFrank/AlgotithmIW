@@ -1,0 +1,22 @@
+class Solution {
+    public int maxArea(int[] height) {
+    	int start = 0;
+    	int end = height.length - 1;
+    	int max = Integer.MIN_VALUE;
+    	while (start < end) {
+    		int tmpMin = 0;
+    		if (height[start] > height[end]) {
+    			tmpMin = height[end];
+    			end--;
+			} else {
+    			tmpMin = height[start];
+    			start++;
+			}
+			max = Math.max(max, (end - start + 1) * tmpMin);
+		}
+		return max;
+    }
+}
+
+//runtime:3 ms
+//memory:51.6 MB
