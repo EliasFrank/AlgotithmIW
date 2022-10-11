@@ -1,1 +1,4 @@
 /.idea/
+*.class
+/out
+/src/leetcode/editor/cn/doc/
