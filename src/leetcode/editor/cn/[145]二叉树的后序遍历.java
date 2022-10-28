@@ -1,4 +1,4 @@
-//给定一个二叉树的根节点 root ，返回 它的 中序 遍历 。 
+//给你一棵二叉树的根节点 root ，返回其节点值的 后序遍历 。 
 //
 // 
 //
@@ -6,7 +6,7 @@
 //
 // 
 //输入：root = [1,null,2,3]
-//输出：[1,3,2]
+//输出：[3,2,1]
 // 
 //
 // 示例 2： 
@@ -28,37 +28,36 @@
 // 提示： 
 //
 // 
-// 树中节点数目在范围 [0, 100] 内 
+// 树中节点的数目在范围 [0, 100] 内 
 // -100 <= Node.val <= 100 
 // 
 //
 // 
 //
-// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？ 
-// Related Topics 栈 树 深度优先搜索 二叉树 👍 1605 👎 0
+// 进阶：递归算法很简单，你可以通过迭代算法完成吗？ 
+// Related Topics 栈 树 深度优先搜索 二叉树 👍 935 👎 0
 
 
 package leetcode.editor.cn;
 
 import com.datastruct.TreeNode;
-import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 二叉树的中序遍历
+ * 二叉树的后序遍历
  * @author HL
- * @date 2022-10-26 20:32:14
+ * @date 2022-10-28 21:08:40
  */
-class P94_BinaryTreeInorderTraversal{
+class P145_BinaryTreePostorderTraversal{
 	 public static void main(String[] args) {
 	 	 //测试代码
-	 	 Solution solution = new P94_BinaryTreeInorderTraversal().new Solution();
+	 	 Solution solution = new P145_BinaryTreePostorderTraversal().new Solution();
 		 TreeNode root = new TreeNode(1);
-//		 root.right = new TreeNode(2);
-//		 root.right.left = new TreeNode(3);
-		 List<Integer> integers = solution.inorderTraversal(root);
+		 root.right = new TreeNode(2);
+		 root.right.left = new TreeNode(3);
+		 List<Integer> integers = solution.postorderTraversal(root);
 		 for (int i = 0; i < integers.size(); i++) {
 			 System.out.print(integers.get(i) + " ");
 		 }
@@ -82,17 +81,16 @@ class P94_BinaryTreeInorderTraversal{
  * }
  */
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		find(root, result);
-    	return result;
+		return result;
     }
-
 	private void find(TreeNode root, List<Integer> result) {
-    	if (root == null) return;
-    	find(root.left, result);
-    	result.add(root.val);
-    	find(root.right, result);
+		if (root == null) return;
+		find(root.left, result);
+		find(root.right, result);
+		result.add(root.val);
 	}
 }
 //leetcode submit region end(Prohibit modification and deletion)

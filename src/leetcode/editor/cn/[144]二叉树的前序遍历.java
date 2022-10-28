@@ -1,4 +1,4 @@
-//给定一个二叉树的根节点 root ，返回 它的 中序 遍历 。 
+//给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 
 //
 // 
 //
@@ -6,7 +6,7 @@
 //
 // 
 //输入：root = [1,null,2,3]
-//输出：[1,3,2]
+//输出：[1,2,3]
 // 
 //
 // 示例 2： 
@@ -23,6 +23,20 @@
 //输出：[1]
 // 
 //
+// 示例 4： 
+//
+// 
+//输入：root = [1,2]
+//输出：[1,2]
+// 
+//
+// 示例 5： 
+//
+// 
+//输入：root = [1,null,2]
+//输出：[1,2]
+// 
+//
 // 
 //
 // 提示： 
@@ -34,31 +48,30 @@
 //
 // 
 //
-// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？ 
-// Related Topics 栈 树 深度优先搜索 二叉树 👍 1605 👎 0
+// 进阶：递归算法很简单，你可以通过迭代算法完成吗？ 
+// Related Topics 栈 树 深度优先搜索 二叉树 👍 930 👎 0
 
 
 package leetcode.editor.cn;
 
 import com.datastruct.TreeNode;
-import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 二叉树的中序遍历
+ * 二叉树的前序遍历
  * @author HL
- * @date 2022-10-26 20:32:14
+ * @date 2022-10-28 21:08:32
  */
-class P94_BinaryTreeInorderTraversal{
+class P144_BinaryTreePreorderTraversal{
 	 public static void main(String[] args) {
 	 	 //测试代码
-	 	 Solution solution = new P94_BinaryTreeInorderTraversal().new Solution();
+	 	 Solution solution = new P144_BinaryTreePreorderTraversal().new Solution();
 		 TreeNode root = new TreeNode(1);
-//		 root.right = new TreeNode(2);
-//		 root.right.left = new TreeNode(3);
-		 List<Integer> integers = solution.inorderTraversal(root);
+		 root.right = new TreeNode(2);
+		 root.right.left = new TreeNode(3);
+		 List<Integer> integers = solution.preorderTraversal(root);
 		 for (int i = 0; i < integers.size(); i++) {
 			 System.out.print(integers.get(i) + " ");
 		 }
@@ -82,17 +95,17 @@ class P94_BinaryTreeInorderTraversal{
  * }
  */
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		find(root, result);
-    	return result;
+		return result;
     }
 
 	private void find(TreeNode root, List<Integer> result) {
-    	if (root == null) return;
-    	find(root.left, result);
-    	result.add(root.val);
-    	find(root.right, result);
+		if (root == null) return;
+		result.add(root.val);
+		find(root.left, result);
+		find(root.right, result);
 	}
 }
 //leetcode submit region end(Prohibit modification and deletion)
