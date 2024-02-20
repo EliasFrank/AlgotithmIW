@@ -41,38 +41,39 @@ package leetcode.editor.cn;
 //
 // Related Topics 栈 树 深度优先搜索 👍 318 👎 0
 
+import java.util.ArrayList;
 import java.util.List;
 
 class NAryTreePostorderTraversal{
   public static void main(String[] args) {
-    Solution solution = new NAryTreePostorderTraversal().new Solution();
-    solution.postorder(null);
-    System.out.println(111);
+      NAryTreePostorderTraversal obj = new NAryTreePostorderTraversal();
+      Solution solution = obj.new Solution();
+      Node root = obj.new Node(1);
+      root.children = new ArrayList<Node>(){{
+         add(obj.new Node(3));
+         add(obj.new Node(2));
+         add(obj.new Node(4));
+      }};
+      root.children.get(0).children = new ArrayList<Node>(){{
+          add(obj.new Node(5));
+          add(obj.new Node(6));
+      }};
+      List<Integer> postorder = solution.postorder(root);
+      for (int i = 0; i < postorder.size(); i++) {
+          System.out.print(postorder.get(i) + " ");
+      }
   }
  
  //leetcode submit region begin(Prohibit modification and deletion)
-/*
-// Definition for a Node.
-class Node {
-    public int val;
-    public List<Node> children;
-
-    public Node() {}
-
-    public Node(int _val) {
-        val = _val;
-    }
-
-    public Node(int _val, List<Node> _children) {
-        val = _val;
-        children = _children;
-    }
-};
-*/
-
 class Solution {
     public List<Integer> postorder(Node root) {
-        
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        for (int i = 0; root.children != null && i < root.children.size(); i++) {
+            result.addAll(postorder(root.children.get(i)));
+        }
+        result.add(root.val);
+        return result;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
