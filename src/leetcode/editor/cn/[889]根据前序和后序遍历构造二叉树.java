@@ -41,13 +41,16 @@ package leetcode.editor.cn;
 
 import com.datastruct.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class ConstructBinaryTreeFromPreorderAndPostorderTraversal{
     public static void main(String[] args) {
       Solution solution = new ConstructBinaryTreeFromPreorderAndPostorderTraversal().new Solution();
-//      int[] preorder = new int[]{1,2,4,5,3,6,7};
-      int[] preorder = new int[]{2,1,3};
-//      int[] postorder = new int[]{4,5,2,6,7,3,1};
-      int[] postorder = new int[]{3,1,2};
+      int[] preorder = new int[]{1,2,4,5,3,6,7};
+//      int[] preorder = new int[]{2,1,3};
+      int[] postorder = new int[]{4,5,2,6,7,3,1};
+//      int[] postorder = new int[]{3,1,2};
         TreeNode treeNode = solution.constructFromPrePost(preorder, postorder);
         System.out.println(treeNode);
     }
@@ -57,29 +60,24 @@ class ConstructBinaryTreeFromPreorderAndPostorderTraversal{
 class Solution {
         int i = 0;
     public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
-        return construct(preorder, postorder, 0, postorder.length - 2);
+        Map<Integer, Integer> postMap = new HashMap<>();
+        for (int i1 = 0; i1 < postorder.length; i1++) {
+            postMap.put(postorder[i1], i1);
+        }
+        return construct(preorder, postorder, 0, postorder.length - 2, postMap);
     }
-    public TreeNode construct(int[] preorder, int[] postorder, int begin, int end) {
+    public TreeNode construct(int[] preorder, int[] postorder, int begin, int end, Map<Integer, Integer> postMap) {
         TreeNode treeNode = new TreeNode(preorder[i]);
         if (begin > end) return treeNode;
         if (i >= postorder.length - 1) return treeNode;
         i++;
-        int index = begin;
-        for (; index <= end; index++) {
-            if (postorder[index] == preorder[i]) {
-                break;
-            }
-        }
-        treeNode.left = construct(preorder, postorder, begin, index - 1);
+        int index = postMap.get(preorder[i]);
+        treeNode.left = construct(preorder, postorder, begin, index - 1, postMap);
         if (index >= end) return treeNode;
         i++;
         begin = index + 1;
-        for (; index <= end; index++) {
-            if (postorder[index] == preorder[i]) {
-                break;
-            }
-        }
-        treeNode.right = construct(preorder, postorder, begin, index - 1);
+        index = postMap.get(preorder[i]);
+        treeNode.right = construct(preorder, postorder, begin, index - 1, postMap);
         return treeNode;
     }
 }
