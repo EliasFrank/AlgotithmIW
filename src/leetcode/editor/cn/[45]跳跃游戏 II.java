@@ -46,7 +46,10 @@ class JumpGameIi{
         Solution solution = new JumpGameIi().new Solution();
 //        int[] nums = new int[]{2,3,1,1,4};
 //        int[] nums = new int[]{10,9,8,7,6,5,4,3,2,1,1,0};
-        int[] nums = new int[]{3,2,1,1};
+//        int[] nums = new int[]{3,2,1,1};
+//        int[] nums = new int[]{2,1,1,1,1};
+//        int[] nums = new int[]{1,2,3};
+        int[] nums = new int[]{2,3,1};
         int jump = solution.jump(nums);
         System.out.println(jump);
     }
@@ -54,25 +57,47 @@ class JumpGameIi{
    //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int jump(int[] nums) {
-        int n = nums.length - 1;
-        if (n == 0) return 0;
-        int maxIndex = 1, step = 0;
-        for (int i = 0; i < nums.length - 1; ) {
-            int max = Integer.MIN_VALUE;
-            int nowIndex = i;
-            for (int j = 1; nowIndex < n && j <= nums[i]; j++) {
-                nowIndex = i + j;
-                if (nowIndex >= n) return ++step;
-                if ((nums[nowIndex] + nowIndex) >= max) {
-                    maxIndex = nowIndex;
-                    max = nums[nowIndex] + nowIndex;
+        int n = nums.length;
+        if (n == 1) return 0;
+        int step = 0;
+        for (int i = 0; i < n - 1; ) {
+            int j = i + 1, next = i;
+            int max = nums[i];
+            while (j - i <= nums[i] && j <= n - 1) {
+                int temp = j + nums[j];
+                if (j >= n - 1) return step + 1;
+                if (temp >= max) {
+                    next = j;
+                    max = temp;
                 }
+                j++;
             }
-            i = maxIndex;
             step++;
+            i = next;
         }
         return step;
     }
+
+//    public int jump(int[] nums) {
+//        int n = nums.length - 1;
+//        if (n == 0) return 0;
+//        int maxIndex = 1, step = 0;
+//        for (int i = 0; i < nums.length - 1; ) {
+//            int max = Integer.MIN_VALUE;
+//            int nowIndex = i;
+//            for (int j = 1; nowIndex < n && j <= nums[i]; j++) {
+//                nowIndex = i + j;
+//                if (nowIndex >= n) return ++step;
+//                if ((nums[nowIndex] + nowIndex) >= max) {
+//                    maxIndex = nowIndex;
+//                    max = nums[nowIndex] + nowIndex;
+//                }
+//            }
+//            i = maxIndex;
+//            step++;
+//        }
+//        return step;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
