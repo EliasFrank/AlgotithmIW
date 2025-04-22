@@ -47,14 +47,33 @@ class P11_ContainerWithMostWater{
 	 public static void main(String[] args) {
 	 	 //测试代码
 	 	 Solution solution = new P11_ContainerWithMostWater().new Solution();
-		 int i = solution.maxArea(new int[]{1,1});
-		 System.out.println(i);
+		 int[] height = new int[]{1,1};
+//		 int[] height = new int[]{1,8,6,2,5,4,8,3,7};
+		 System.out.println(solution.maxArea(height));
 	 }
 	 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+
     public int maxArea(int[] height) {
+		int left = 0, right = height.length - 1;
+		int reuslt = 0;
+		int min = 0;
+		while (left < right) {
+			if (height[left] > height[right]) {
+				min = height[right];
+				right--;
+			} else {
+				min = height[left];
+				left++;
+			}
+			reuslt = Math.max(reuslt, min * (right - left + 1));
+		}
+		return reuslt;
+    }
+
+    /*public int maxArea(int[] height) {
     	int start = 0;
     	int end = height.length - 1;
     	int max = Integer.MIN_VALUE;
@@ -70,7 +89,7 @@ class Solution {
 			max = Math.max(max, (end - start + 1) * tmpMin);
 		}
 		return max;
-    }
+    }*/
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
