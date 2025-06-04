@@ -2,3 +2,4 @@
 *.class
 /out
 /src/leetcode/editor/cn/doc/submission
+*.log
